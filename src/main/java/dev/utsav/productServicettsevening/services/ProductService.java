@@ -1,14 +1,16 @@
 package dev.utsav.productServicettsevening.services;
 
-import dev.utsav.productServicettsevening.dtos.ProductDto;
+import dev.utsav.productServicettsevening.dtos.ProductDtoReq;
+import dev.utsav.productServicettsevening.dtos.ProductDtoRes;
 import dev.utsav.productServicettsevening.models.Product;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface ProductService {
-    List<Product> getAllProducts();
+    ResponseEntity<List<ProductDtoRes>> getAllProducts();
     Product getSingleProduct(Long productId);
-    Product addNewProduct(ProductDto productDto);
+    ProductDtoRes addNewProduct(ProductDtoReq productDtoReq);
     Product updateProduct(Long productId);
     boolean deleteProduct(Long productId);
 }

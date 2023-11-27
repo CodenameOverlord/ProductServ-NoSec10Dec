@@ -1,9 +1,9 @@
 package dev.utsav.productServicettsevening.controllers;
 
-import dev.utsav.productServicettsevening.dtos.ProductDto;
+import dev.utsav.productServicettsevening.dtos.ProductDtoReq;
+import dev.utsav.productServicettsevening.dtos.ProductDtoRes;
 import dev.utsav.productServicettsevening.models.Product;
 import dev.utsav.productServicettsevening.services.ProductService;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +17,15 @@ public class ProductController {
     public ProductController(ProductService productService){
         this.productService = productService;
     }
+
+//  Only allow admin to fetch all products
     @GetMapping("")
-    public ResponseEntity<List<Product>> getAllProducts() {
-        ResponseEntity<List<Product>> res = new ResponseEntity<>(
-                this.productService.getAllProducts(), HttpStatus.OK
-        );
-        return res;
+    public ResponseEntity<List<ProductDtoRes>> getAllProducts() {
+       return this.productService.getAllProducts();
+//        ResponseEntity<List<Product>> res = new ResponseEntity<>(
+//                this.productService.getAllProducts(), HttpStatus.OK
+//        );
+//        return res;
     }
 
     @GetMapping("/{productId}")
@@ -35,15 +38,15 @@ public class ProductController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Product> addNewProduct(@RequestBody ProductDto productDto){
-        Product product = this.productService.addNewProduct(productDto);
-        ResponseEntity<Product> response = new ResponseEntity<>(product,
+    public ResponseEntity<ProductDtoRes> addNewProduct(@RequestBody ProductDtoReq productDtoReq){
+        ProductDtoRes product = this.productService.addNewProduct(productDtoReq);
+        ResponseEntity<ProductDtoRes> response = new ResponseEntity<>(product,
                 HttpStatus.CREATED);
         return response;
     }
 
     @PutMapping("/{productId}")
-    public String updateProduct(@RequestBody ProductDto productDto){
+    public String updateProduct(@RequestBody ProductDtoRes productDtoRes){
         return "updating product";
     }
 
