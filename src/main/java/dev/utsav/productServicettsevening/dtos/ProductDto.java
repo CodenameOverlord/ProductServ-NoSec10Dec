@@ -7,9 +7,10 @@ import dev.utsav.productServicettsevening.models.Category;
 @Getter
 @Setter
 public class ProductDto {
+    private Long id;
     private String title;
-    private double price;
+    private Double price;
+    private String category;
     private String description;
-    private Category category;
-    private String imageUrl;
+    private String image;
 }
