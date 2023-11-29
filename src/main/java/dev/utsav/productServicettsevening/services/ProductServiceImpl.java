@@ -2,7 +2,9 @@ package dev.utsav.productServicettsevening.services;
 
 import dev.utsav.productServicettsevening.dtos.ProductDtoReq;
 import dev.utsav.productServicettsevening.dtos.ProductDtoRes;
+import dev.utsav.productServicettsevening.models.Category;
 import dev.utsav.productServicettsevening.models.Product;
+import dev.utsav.productServicettsevening.repositories.CategoryRepository;
 import dev.utsav.productServicettsevening.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,12 +13,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements  ProductService{
 
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @Override
     public ResponseEntity<List<ProductDtoRes>> getAllProducts() {
@@ -41,8 +46,10 @@ public class ProductServiceImpl implements  ProductService{
         product.setImageUrl(productDtoReq.getImageUrl());
         product.setPrice(productDtoReq.getPrice());
         product.setTitle(productDtoReq.getTitle());
+        Optional<Category> category = categoryRepository.findById(productDtoReq.getCategoryId());
+        product.setCategory(category.get());
         Product savedProduct = productRepository.save(product);
-        ProductDtoRes productDtoRes  = ProductDtoRes.convertProductToProductDto(product);
+        ProductDtoRes productDtoRes  = ProductDtoRes.convertProductToProductDto(savedProduct);
 
         return productDtoRes;
     }

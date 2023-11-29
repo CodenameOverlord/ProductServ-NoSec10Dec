@@ -9,7 +9,7 @@ public class ProductDtoReq {
     private String title;
     private double price;
     private String description;
-//    private Long CategoryId;
+    private Long categoryId;
     private String imageUrl;
 
 }

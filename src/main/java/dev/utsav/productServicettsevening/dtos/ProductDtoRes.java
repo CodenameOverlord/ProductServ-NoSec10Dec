@@ -16,7 +16,7 @@ public class ProductDtoRes {
 
     public static ProductDtoRes convertProductToProductDto(Product product) {
         ProductDtoRes productDtoRes = new ProductDtoRes();
-        productDtoRes.setId(productDtoRes.getId());
+        productDtoRes.setId(product.getId());
         productDtoRes.setTitle(product.getTitle());
         productDtoRes.setPrice(product.getPrice());
         productDtoRes.setCategory(product.getCategory().getName());
