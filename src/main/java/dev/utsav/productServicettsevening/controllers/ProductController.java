@@ -55,10 +55,15 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> getSingleProduct(@PathVariable("productId") Long productId) {
-        Product product = this.productService.getSingleProduct(productId);
-        ResponseEntity<Product> response = new ResponseEntity<>(
-                product, HttpStatus.OK
+    public ResponseEntity<?> getSingleProduct(@PathVariable("productId") Long productId) {
+        Optional<ProductDtoRes> productDtoResOptional = this.productService.getSingleProduct(productId);
+        if(productDtoResOptional.isEmpty()){
+            return  new ResponseEntity<>(
+                    "no such product found", HttpStatus.BAD_REQUEST
+            );
+        }
+        ResponseEntity<ProductDtoRes> response = new ResponseEntity<>(
+                productDtoResOptional.get(), HttpStatus.OK
         );
         return response;
     }

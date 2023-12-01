@@ -35,8 +35,13 @@ public class ProductServiceImpl implements  ProductService{
     }
 
     @Override
-    public Product getSingleProduct(Long productId) {
-        return null;
+    public Optional<ProductDtoRes> getSingleProduct(Long productId) {
+        Optional<Product> productOptional = productRepository.findById(productId);
+        if(productOptional.isEmpty()){
+            return Optional.ofNullable(null);
+        }
+        ProductDtoRes productDtoRes = ProductDtoRes.convertProductToProductDto(productOptional.get());
+        return Optional.of(productDtoRes);
     }
 
     @Override

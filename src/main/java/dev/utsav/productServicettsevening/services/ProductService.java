@@ -6,10 +6,11 @@ import dev.utsav.productServicettsevening.models.Product;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
     ResponseEntity<List<ProductDtoRes>> getAllProducts();
-    Product getSingleProduct(Long productId);
+    Optional<ProductDtoRes> getSingleProduct(Long productId);
     ProductDtoRes addNewProduct(ProductDtoReq productDtoReq);
     Product updateProduct(Long productId);
     boolean deleteProduct(Long productId);
